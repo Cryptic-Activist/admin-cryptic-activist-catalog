@@ -3,7 +3,7 @@ import React from "react";
 const PaymentMethodCategoriesHead = () => {
   return (
     <>
-      <title>Payment Method Categories - Cryptic Activist Catalog</title>
+      <title>Users - Cryptic Activist Catalog</title>
     </>
   );
 };

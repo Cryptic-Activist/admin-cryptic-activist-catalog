@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
 
-export type BreadcrumbProps = {
+export type UsersLayoutProps = {
   children: ReactNode;
 };

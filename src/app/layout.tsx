@@ -7,7 +7,7 @@ import Footer from "@/layout/Footer";
 const roboto = Roboto({ subsets: ["latin"], weight: "400" });
 
 import "./global.css";
-import page from "./page.module.scss";
+import layout from "./layout.module.scss";
 
 export default function RootLayout({
   children,
@@ -19,9 +19,9 @@ export default function RootLayout({
       <head />
       <body className={roboto.className}>
         <NavigationBar />
-        <main className={page.main}>
+        <main className={layout.main}>
           <SideBar />
-          <div className={page.container}>{children}</div>
+          <div className={layout.container}>{children}</div>
         </main>
         <Footer />
       </body>

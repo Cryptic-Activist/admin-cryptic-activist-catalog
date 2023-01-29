@@ -1,17 +1,5 @@
-.container {
-  display: flex;
-  flex-direction: column;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-}
-
-.pageBackHeading {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.test {
+  height: 300rem;
+  width: 100%;
+  background-color: cadetblue;
 }
