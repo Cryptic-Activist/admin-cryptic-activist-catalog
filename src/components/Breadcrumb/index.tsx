@@ -23,7 +23,7 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ children }) => {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        {breadcrumbs!.length > 1 ? (
+        {capitalizedMapped!.length > 1 ? (
           <div className={styles.pageBackHeading}>
             <Back />
             <h1 className={styles.breadcrumb}>{breadcrumbs}</h1>
@@ -31,7 +31,6 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ children }) => {
         ) : (
           <h1 className={styles.breadcrumb}>{breadcrumbs}</h1>
         )}
-
         {children}
       </header>
     </div>
