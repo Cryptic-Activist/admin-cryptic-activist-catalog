@@ -21,7 +21,7 @@ export default function RootLayout({
         <NavigationBar />
         <main className={page.main}>
           <SideBar />
-          {children}
+          <div className={page.container}>{children}</div>
         </main>
         <Footer />
       </body>
