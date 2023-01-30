@@ -9,11 +9,7 @@ const roboto = Roboto({ subsets: ["latin"], weight: "400" });
 import "./global.css";
 import layout from "./layout.module.scss";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <head />
@@ -27,4 +23,6 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

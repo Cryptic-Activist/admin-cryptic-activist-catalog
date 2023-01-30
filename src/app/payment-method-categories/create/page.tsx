@@ -2,16 +2,20 @@
 
 import { useForm } from "react-hook-form";
 
-import Input from "@/components/Form/Input";
-import Submit from "@/components/Form/Submit";
+import { usePaymentMethodCategories } from "@/hooks";
+
+import { Input, Submit } from "@/components/Form";
+
+import { createPaymentMethodCategory } from "@/stores";
 
 import page from "./page.module.scss";
 
 const PaymentMethodCategoriesPage = () => {
-  const { register, getValues, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm();
+  const { handleCreatePaymentMethodCategory } = usePaymentMethodCategories();
 
   const onSubmit = (data: any) => {
-    console.log({ data });
+    handleCreatePaymentMethodCategory(data);
   };
 
   return (
