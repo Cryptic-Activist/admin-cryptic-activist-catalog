@@ -1,4 +1,4 @@
-type PaymentMethodCategory = {
+export type PaymentMethodCategory = {
   id: string;
   name: string;
   isDeleted: boolean;

@@ -15,7 +15,8 @@ const PaymentMethodCategoriesPage = () => {
   const { handleCreatePaymentMethodCategory } = usePaymentMethodCategories();
 
   const onSubmit = (data: any) => {
-    handleCreatePaymentMethodCategory(data);
+    const { name } = data.category;
+    handleCreatePaymentMethodCategory({ name });
   };
 
   return (

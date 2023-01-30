@@ -1,19 +1,41 @@
+"use client";
+import { useEffect } from "react";
 import { useStore } from "@nanostores/react";
 
-import { paymentMethodCategories, createPaymentMethodCategory } from "@/stores";
-import { CreatePaymentMethodCategoryParams } from "./types";
+import {
+  paymentMethodCategories,
+  createPaymentMethodCategory,
+  listPaymentMethodCategory,
+} from "@/stores";
+import {
+  CreatePaymentMethodCategoryParams,
+  UsePaymentMethodCategoriesParams,
+} from "./types";
 
-const UsePaymentMethodCategories = () => {
+const UsePaymentMethodCategories = (
+  fetchData?: UsePaymentMethodCategoriesParams
+) => {
   const $paymentMethodCategories = useStore(paymentMethodCategories);
 
-  const handleCreatePaymentMethodCategory = (
+  const handleCreatePaymentMethodCategory = async (
     data: CreatePaymentMethodCategoryParams
   ) => {
-    createPaymentMethodCategory(data);
+    await createPaymentMethodCategory(data);
   };
+
+  const handleListPaymentMethodCategory = async () => {
+    await listPaymentMethodCategory();
+  };
+
+  useEffect(() => {
+    if (fetchData) {
+      handleListPaymentMethodCategory();
+    }
+  }, [fetchData]);
 
   return {
     handleCreatePaymentMethodCategory,
+    handleListPaymentMethodCategory,
     paymentMethodCategories: $paymentMethodCategories,
   };
 };

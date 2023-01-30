@@ -1,13 +1,15 @@
-import { usePaymentMethodCategories } from "@/hooks";
+"use client";
+
+import List from "@/components/List/PaymentMethodCategories";
+
+import usePaymentMethodCategories from "@/hooks/usePaymentMethodCategories";
 
 const PaymentMethodCategories = () => {
-  const { paymentMethodCategories } = usePaymentMethodCategories();
+  const { paymentMethodCategories } = usePaymentMethodCategories(true);
 
   return (
     <div>
-      {paymentMethodCategories.data.map((paymentMethodCategory) => (
-        <p>{paymentMethodCategory.name}</p>
-      ))}
+      <List items={paymentMethodCategories.data} />
     </div>
   );
 };
