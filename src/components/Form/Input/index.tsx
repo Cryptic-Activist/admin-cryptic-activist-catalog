@@ -12,6 +12,7 @@ const Input: FC<InputProps> = ({
   min,
   max,
   required,
+  type,
 }) => (
   <div className={styles.container}>
     {label && (
@@ -20,7 +21,7 @@ const Input: FC<InputProps> = ({
       </label>
     )}
     <input
-      type="text"
+      type={type}
       id={id}
       {...register(name, { required, min, max })}
       className={styles.input}

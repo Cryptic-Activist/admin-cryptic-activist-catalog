@@ -7,4 +7,5 @@ export type InputProps = {
   min?: number;
   max?: number;
   required?: boolean;
+  type?: "text" | "password" | "date";
 };
