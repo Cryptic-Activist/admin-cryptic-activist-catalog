@@ -1,17 +1,18 @@
 import { FC } from "react";
 
 import styles from "./styles.module.scss";
-import { InputProps } from "./types";
+import { SelectProps } from "./types";
 
-const Input: FC<InputProps> = ({
+const Select: FC<SelectProps> = ({
   id,
   label,
   register,
   name,
   placeholder,
+  options,
+  required,
   min,
   max,
-  required,
 }) => (
   <div className={styles.container}>
     {label && (
@@ -19,14 +20,17 @@ const Input: FC<InputProps> = ({
         {label}
       </label>
     )}
-    <input
-      type="text"
+    <select
       id={id}
       {...register(name, { required, min, max })}
-      className={styles.input}
+      className={styles.select}
       placeholder={placeholder}
-    />
+    >
+      {options.map((option) => (
+        <option value={option.value}>{option.label}</option>
+      ))}
+    </select>
   </div>
 );
 
-export default Input;
+export default Select;

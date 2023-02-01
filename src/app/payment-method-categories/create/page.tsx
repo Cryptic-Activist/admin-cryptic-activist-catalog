@@ -3,10 +3,7 @@
 import { useForm } from "react-hook-form";
 
 import { usePaymentMethodCategories } from "@/hooks";
-
 import { Input, Submit } from "@/components/Form";
-
-import { createPaymentMethodCategory } from "@/stores";
 
 import page from "./page.module.scss";
 
@@ -31,6 +28,7 @@ const PaymentMethodCategoriesPage = () => {
           name="category.name"
           register={register}
           label="Category Name"
+          required
         />
         <Submit type="submit">Submit</Submit>
       </form>

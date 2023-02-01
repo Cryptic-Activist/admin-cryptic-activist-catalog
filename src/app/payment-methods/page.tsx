@@ -1,7 +1,13 @@
-import React from "react";
+"use client";
+
+import { usePaymentMethods } from "@/hooks";
+
+import { PaymentMethodsList as List } from "@/components/List";
 
 const PaymentMethods = () => {
-  return <div>PaymentMethods</div>;
+  const { paymentMethods } = usePaymentMethods(true);
+
+  return <List items={paymentMethods.data} />;
 };
 
 export default PaymentMethods;
