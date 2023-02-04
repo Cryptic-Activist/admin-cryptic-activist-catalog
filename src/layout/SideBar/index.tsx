@@ -26,6 +26,14 @@ const SideBar = () => {
         <li className={styles.asideListItem}>
           <Link href="/chats">Chats</Link>
         </li>
+        <li className={styles.asideListItem}>
+          <Link href="/fiats">
+            Fiats
+          </Link>
+        </li>
+        <li className={styles.asideListItem}>
+          <Link href="/cryptocurrencies">Cryptocurrencies</Link>
+        </li>
       </ul>
     </aside>
   );

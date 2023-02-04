@@ -1,8 +1,13 @@
+import { toggleModal } from "@/stores/navigationBar";
 import Link from "next/link";
 
 import styles from "./styles.module.scss";
 
 const NavigationBar = () => {
+  const toggleLogin = () => {
+    toggleModal({ modal: "login" });
+  };
+
   return (
     <nav className={styles.nav}>
       <div className={styles.container}>
@@ -23,7 +28,9 @@ const NavigationBar = () => {
             </Link>
           </li>
           <li>
-            <button className={styles.userButton}>Login</button>
+            <button className={styles.userButton} onClick={toggleLogin}>
+              Login
+            </button>
           </li>
         </ul>
       </div>

@@ -2,7 +2,7 @@ import axios, { AxiosRequestHeaders } from "axios";
 
 export const fetchGet = async (
   endpoint: string,
-  headers?: AxiosRequestHeaders
+  headers?: AxiosRequestHeaders | any
 ) => {
   try {
     const response = axios.get(endpoint, { headers });
@@ -14,8 +14,8 @@ export const fetchGet = async (
 
 export const fetchPost = async (
   endpoint: string,
-  body: object,
-  headers?: AxiosRequestHeaders
+  body?: object,
+  headers?: AxiosRequestHeaders | any
 ) => {
   try {
     const response = axios.post(endpoint, body, { headers });

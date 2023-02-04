@@ -46,7 +46,7 @@ const Users: FC<ListProps> = ({ items }) => {
       </header>
       <ul className={styles.list}>
         {items.map((item) => (
-          <Item item={item} />
+          <Item key={item.id} item={item} />
         ))}
       </ul>
     </div>
