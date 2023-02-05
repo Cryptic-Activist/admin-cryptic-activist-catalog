@@ -1,12 +1,12 @@
-import { map } from "nanostores";
 import { fetchGet, fetchPost } from "@/services/axios";
+import { map } from "nanostores";
 
+import { CRYPTOCURRENCY_API_ENDPOINT } from "@/constants/envs";
+import { getBearerToken, getLocalStorage } from "@/utils/browser/storage";
 import type {
   CreateCryptocurrencyParams,
   CryptocurrenciesState,
 } from "./types";
-import { CRYPTOCURRENCY_API_ENDPOINT } from "@/constants/envs";
-import { getBearerToken, getLocalStorage } from "@/utils/browser/storage";
 
 export const cryptocurrencies = map<CryptocurrenciesState>({
   data: [],
@@ -42,8 +42,6 @@ const fetchListCryptocurrencies = async () => {
 
 const fetchCreateAllCryptocurrencies = async () => {
   const accessToken = getLocalStorage("accessToken");
-
-  console.log({ accessToken });
 
   if (!accessToken) {
     return null;

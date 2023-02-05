@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from "react";
+import { FC, useCallback } from "react";
 import { FaSpinner } from "react-icons/fa";
 
 import { useNavigationBar } from "@/hooks";
@@ -14,12 +14,12 @@ const ModalTemplate: FC<ModalTemplateProps> = ({
   successMessage,
   allowClose,
 }) => {
-  const { navigationBar, handleToggleModal } = useNavigationBar();
+  const { navigationBar, handleCloseModal } = useNavigationBar();
   const { status } = navigationBar;
 
   const handleCloseAllModals = useCallback(() => {
     if (allowClose) {
-      handleToggleModal({ modal: "login" });
+      handleCloseModal();
     }
   }, [allowClose]);
 

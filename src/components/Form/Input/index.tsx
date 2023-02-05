@@ -17,7 +17,7 @@ const Input: FC<InputProps> = ({
   <div className={styles.container}>
     {label && (
       <label htmlFor={id} className={styles.label}>
-        {label}
+        {`${label} ${required && "*"}`}
       </label>
     )}
     <input

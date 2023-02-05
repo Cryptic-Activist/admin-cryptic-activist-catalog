@@ -1,16 +1,20 @@
 import { useStore } from "@nanostores/react";
 
-import { navigationBar, toggleModal } from "@/stores/navigationBar";
+import { closeModal, navigationBar, openModal } from "@/stores/navigationBar";
 import { ToggleModalParams } from "@/stores/navigationBar/types";
 
 const useNavigationBar = () => {
   const $navigationBar = useStore(navigationBar);
 
-  const handleToggleModal = (params: ToggleModalParams) => {
-    toggleModal(params);
+  const handleOpenModal = (params: ToggleModalParams) => {
+    openModal(params);
   };
 
-  return { navigationBar: $navigationBar, handleToggleModal };
+  const handleCloseModal = () => {
+    closeModal();
+  };
+
+  return { navigationBar: $navigationBar, handleOpenModal, handleCloseModal };
 };
 
 export default useNavigationBar;

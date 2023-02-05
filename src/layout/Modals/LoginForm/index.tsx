@@ -1,33 +1,19 @@
-import { FC, useEffect, useCallback } from "react";
+import { FC, useCallback } from "react";
 import { useForm } from "react-hook-form";
 
-// import {
-//   Button,
-//   Form,
-//   InputsContainer,
-//   Submit,
-//   Input,
-//   Required,
-// } from "@styles/components/Modals/ModalTemplate";
-
-// import useWarnings from "@hooks/useWarnings";
-
-// import Warnings from "@/components/Warnings/Warnings";
 import ModalTemplate from "@/layout/Modals/ModalTemplate";
 
-import { useAdmin, useNavigationBar } from "@/hooks";
 import { Input, Submit } from "@/components/Form";
+import { useAdmin } from "@/hooks";
 
-import { ToggleModalParams } from "@/stores/navigationBar/types";
-import { Modal } from "./types";
+import Errors from "@/components/Form/Errors";
+import FormButton from "@/components/Form/FormButton";
 
 import template from "@/layout/Modals/ModalTemplate/styles.module.scss";
 
 const LoginForm: FC = () => {
-  const { admin, loginAdmin } = useAdmin();
-  const { handleToggleModal } = useNavigationBar();
+  const { loginAdmin } = useAdmin();
 
-  // const { add, reset } = useWarnings();
   const {
     register,
     handleSubmit,
@@ -35,30 +21,16 @@ const LoginForm: FC = () => {
     clearErrors,
   } = useForm();
 
-  // useEffect(() => {
-  //   reset();
-  // }, []);
-
-  // useEffect(() => {
-  //   if (admin.errors.length > 0) {
-  //     add(admin.errors[0]);
-  //   } else {
-  //     reset();
-  //   }
-  // }, [admin.errors]);
-
   const checkValidForm = useCallback((): boolean => {
     if (Object.entries(errors).length > 0) {
-      // add(errors[0]);
       return false;
     }
-    // reset();
+
     return true;
   }, [errors]);
 
   const onSubmit = useCallback(
     (data: any): void => {
-      console.log({ data });
       clearErrors();
       if (checkValidForm()) {
         loginAdmin(data);
@@ -66,10 +38,6 @@ const LoginForm: FC = () => {
     },
     [clearErrors]
   );
-
-  const handleLoginButtons = (modal: Modal) => {
-    handleToggleModal({ modal });
-  };
 
   return (
     <ModalTemplate heading="| Login" type="loginForm" allowClose>
@@ -87,9 +55,17 @@ const LoginForm: FC = () => {
           register={register}
           label="Password"
           required
+          type="password"
         />
 
         <Submit type="submit">Login</Submit>
+
+        <Errors errors={[]} />
+
+        <FormButton
+          modal={{ modal: "register" }}
+          label="Don't have an account yet?"
+        />
 
         {/* <div>
           <Warnings modal={false} />

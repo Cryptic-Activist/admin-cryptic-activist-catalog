@@ -1,11 +1,15 @@
-import { toggleModal } from "@/stores/navigationBar";
+import { useAdmin } from "@/hooks";
+import { openModal } from "@/stores/navigationBar";
+import { isLoggedIn } from "@/utils/checks/admin";
 import Link from "next/link";
 
 import styles from "./styles.module.scss";
 
 const NavigationBar = () => {
+  const { admin } = useAdmin();
+
   const toggleLogin = () => {
-    toggleModal({ modal: "login" });
+    openModal({ modal: "login" });
   };
 
   return (
@@ -28,9 +32,15 @@ const NavigationBar = () => {
             </Link>
           </li>
           <li>
-            <button className={styles.userButton} onClick={toggleLogin}>
-              Login
-            </button>
+            {isLoggedIn(admin.data) ? (
+              <button className={styles.userButton}>
+                {admin.data?.firstName}
+              </button>
+            ) : (
+              <button className={styles.userButton} onClick={toggleLogin}>
+                Login
+              </button>
+            )}
           </li>
         </ul>
       </div>

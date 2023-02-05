@@ -1,15 +1,13 @@
 "use client";
 
 import { Montserrat } from "@next/font/google";
-import { useStore } from "@nanostores/react";
 
+import Footer from "@/layout/Footer";
+import { LoginForm, RegisterForm } from "@/layout/Modals";
 import NavigationBar from "@/layout/NavigationBar";
 import SideBar from "@/layout/SideBar";
-import Footer from "@/layout/Footer";
-import { LoginForm } from "@/layout/Modals";
 
-import { useAdmin } from "@/hooks";
-import { navigationBar } from "@/stores/navigationBar";
+import { useAdmin, useNavigationBar } from "@/hooks";
 
 const montserrat = Montserrat({ subsets: ["latin"], weight: "400" });
 
@@ -17,16 +15,15 @@ import "./global.css";
 import layout from "./layout.module.scss";
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  const $navigationBar = useStore(navigationBar);
+  const { navigationBar } = useNavigationBar();
   const { admin } = useAdmin();
-
-  console.log($navigationBar);
 
   return (
     <html lang="en">
       <head />
       <body className={montserrat.className}>
-        {$navigationBar.modals.login && <LoginForm />}
+        {navigationBar.modals.login && <LoginForm />}
+        {navigationBar.modals.register && <RegisterForm />}
         <NavigationBar />
         <main className={layout.main}>
           <SideBar />

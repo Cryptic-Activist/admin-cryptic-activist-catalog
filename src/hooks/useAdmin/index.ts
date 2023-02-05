@@ -4,8 +4,8 @@ import { useStore } from "@nanostores/react";
 import { useEffect } from "react";
 
 import {
-  decodeAccessToken as handleDecodeAccessToken,
   admin,
+  decodeAccessToken as handleDecodeAccessToken,
   handleLoginAdmin,
 } from "@/stores/admin";
 import { CreateUserParams } from "./types";
@@ -20,7 +20,6 @@ const useUsers = () => {
   };
 
   const decodeAccessToken = async () => {
-    console.log("decoding...");
     await handleDecodeAccessToken();
   };
 

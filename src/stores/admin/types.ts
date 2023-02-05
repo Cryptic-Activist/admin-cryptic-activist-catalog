@@ -27,14 +27,18 @@ export type Admin = {
 };
 
 export type AdminState = {
-  data?: Admin | object;
+  data?: Admin;
   loading: boolean;
   fetched: boolean;
   errors: string[];
 };
 
-export type CreateAdminParams = {
-  firstName: string;
-  lastName: string;
+export type RegisterAdminParams = {
+  names: {
+    firstName: string;
+    lastName: string;
+  };
   username: string;
+  password: string;
+  password2: string;
 };

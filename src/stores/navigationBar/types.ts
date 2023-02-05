@@ -8,6 +8,7 @@ export type NavigationBarState = {
   modals: {
     login: boolean;
     register: boolean;
+    resetPassword: boolean;
   };
   status: "idle" | "loading";
 };
