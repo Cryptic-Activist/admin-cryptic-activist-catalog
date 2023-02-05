@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Item from "./Item";
 
 import styles from "./styles.module.scss";
 
@@ -6,34 +6,17 @@ const SideBar = () => {
   return (
     <aside className={styles.aside}>
       <ul className={styles.asideList}>
-        <li className={styles.asideListItem}>
-          <Link href="/users">Users</Link>
-        </li>
-        <li className={styles.asideListItem}>
-          <Link href="/offers">Offers</Link>
-        </li>
-        <li className={styles.asideListItem}>
-          <Link href="/trades">Trades</Link>
-        </li>
-        <li className={styles.asideListItem}>
-          <Link href="/payment-methods">Payment Methods</Link>
-        </li>
-        <li className={styles.asideListItem}>
-          <Link href="/payment-method-categories">
-            Payment Method Categories
-          </Link>
-        </li>
-        <li className={styles.asideListItem}>
-          <Link href="/chats">Chats</Link>
-        </li>
-        <li className={styles.asideListItem}>
-          <Link href="/fiats">
-            Fiats
-          </Link>
-        </li>
-        <li className={styles.asideListItem}>
-          <Link href="/cryptocurrencies">Cryptocurrencies</Link>
-        </li>
+        <Item href="/users" label="Users" />
+        <Item href="/offers" label="Offers" />
+        <Item href="/trades" label="Trades" />
+        <Item href="/payment-methods" label="Payment Methods" />
+        <Item
+          href="/payment-method-categories"
+          label="Payment Method Categories"
+        />
+        <Item href="/chats" label="Chats" />
+        <Item href="/fiats" label="Fiats" />
+        <Item href="/cryptocurrencies" label="Cryptocurrencies" />
       </ul>
     </aside>
   );

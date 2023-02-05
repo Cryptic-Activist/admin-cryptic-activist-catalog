@@ -36,3 +36,7 @@
     }
   }
 }
+
+.asideListItemIsCurrentPage {
+  background-color: rgba($color: $sidebar-background-hover, $alpha: 1);
+}
