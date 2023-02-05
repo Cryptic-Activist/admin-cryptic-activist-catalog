@@ -9,9 +9,9 @@ export type NavigationBarState = {
     login: boolean;
     register: boolean;
   };
-  status: "idle";
+  status: "idle" | "loading";
 };
 
 export type ToggleModalParams = {
-  modal: "login" | "register";
+  modal: "login" | "register" | "resetPassword";
 };

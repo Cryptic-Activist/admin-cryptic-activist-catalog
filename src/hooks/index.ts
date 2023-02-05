@@ -4,3 +4,4 @@ export { default as useFiats } from "./useFiats";
 export { default as usePaymentMethodCategories } from "./usePaymentMethodCategories";
 export { default as usePaymentMethods } from "./usePaymentMethods";
 export { default as useUsers } from "./useUsers";
+export { default as useNavigationBar } from "./useNavigationBar";

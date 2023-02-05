@@ -1,63 +1,49 @@
-import React, { FC, useCallback } from 'react';
-import { FaSpinner } from 'react-icons/fa';
+import React, { FC, useCallback } from "react";
+import { FaSpinner } from "react-icons/fa";
 
-import {
-	Background,
-	Container,
-	Heading,
-	Loading,
-	Message,
-} from '@styles/components/Modals/ModalTemplate';
+import { useNavigationBar } from "@/hooks";
 
-import { IModalTemplate } from 'types/components/Modals/ModalTemplate';
+import styles from "./styles.module.scss";
+import { ModalTemplateProps } from "./types";
 
-import { resetNavigationBar } from 'store/reducers/navigationBar';
-// import { navigationBarSelector } from "oldStore/selectors";
-
-import { useAppDispatch, useAppSelector } from 'store';
-
-const ModalTemplate: FC<IModalTemplate> = ({
-	children,
-	heading,
-	type,
-	success,
-	successMessage,
-	allowClose,
+const ModalTemplate: FC<ModalTemplateProps> = ({
+  children,
+  heading,
+  type,
+  success,
+  successMessage,
+  allowClose,
 }) => {
-	const dispatch = useAppDispatch();
-	const { drawers, modals, status, tooltips } = useAppSelector(
-		(state) => state.navigationBar
-	);
+  const { navigationBar, handleToggleModal } = useNavigationBar();
+  const { status } = navigationBar;
 
-	const handleCloseAllModals = useCallback(() => {
-		if (allowClose) {
-			dispatch(resetNavigationBar('modals'));
-			dispatch(resetNavigationBar('tooltips'));
-			dispatch(resetNavigationBar('drawers'));
-		}
-	}, [dispatch, allowClose]);
+  const handleCloseAllModals = useCallback(() => {
+    if (allowClose) {
+      handleToggleModal({ modal: "login" });
+    }
+  }, [allowClose]);
 
-	return (
-		<>
-			<Background onClick={handleCloseAllModals} />
-			<Container id={type} privateKeys={modals.privateKeys}>
-				<Heading>{heading}</Heading>
-				{status === 'loading' ? (
-					<Loading>
-						<FaSpinner />
-					</Loading>
-				) : (
-					<>
-						{success && successMessage ? (
-							<Message>{successMessage}</Message>
-						) : (
-							children
-						)}
-					</>
-				)}
-			</Container>
-		</>
-	);
+  return (
+    <>
+      <div className={styles.background} onClick={handleCloseAllModals} />
+      <div id={type} className={styles.container}>
+        <h1 className={styles.heading}>{heading}</h1>
+        {status === "loading" ? (
+          <div className={styles.loading}>
+            <FaSpinner />
+          </div>
+        ) : (
+          <>
+            {success && successMessage ? (
+              <p className={styles.message}>{successMessage}</p>
+            ) : (
+              children
+            )}
+          </>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default ModalTemplate;

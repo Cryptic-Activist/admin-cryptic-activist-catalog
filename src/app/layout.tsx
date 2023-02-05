@@ -20,6 +20,8 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const $navigationBar = useStore(navigationBar);
   const { admin } = useAdmin();
 
+  console.log($navigationBar);
+
   return (
     <html lang="en">
       <head />

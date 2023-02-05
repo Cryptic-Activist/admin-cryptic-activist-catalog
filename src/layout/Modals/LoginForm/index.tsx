@@ -1,35 +1,33 @@
 import { FC, useEffect, useCallback } from "react";
-
 import { useForm } from "react-hook-form";
 
-import { loginUser } from "@store/thunks/user";
+// import {
+//   Button,
+//   Form,
+//   InputsContainer,
+//   Submit,
+//   Input,
+//   Required,
+// } from "@styles/components/Modals/ModalTemplate";
 
-import { useAppDispatch, useAppSelector } from "store";
-import { toggleModal } from "store/reducers/navigationBar";
-import { Modal } from "store/reducers/navigationBar/types";
+// import useWarnings from "@hooks/useWarnings";
 
-import {
-  Button,
-  Form,
-  InputsContainer,
-  Submit,
-  Input,
-  Required,
-} from "@styles/components/Modals/ModalTemplate";
+// import Warnings from "@/components/Warnings/Warnings";
+import ModalTemplate from "@/layout/Modals/ModalTemplate";
 
-import useWarnings from "@hooks/useWarnings";
+import { useAdmin, useNavigationBar } from "@/hooks";
+import { Input, Submit } from "@/components/Form";
 
-import Warnings from "@/components/Warnings/Warnings";
-import ModalTemplate from "layout/Modals/ModalTemplate";
-import {
-  InputLabel,
-  InputRequiredLabelContainer,
-} from "@styles/components/Input";
+import { ToggleModalParams } from "@/stores/navigationBar/types";
+import { Modal } from "./types";
+
+import template from "@/layout/Modals/ModalTemplate/styles.module.scss";
 
 const LoginForm: FC = () => {
-  const { user } = useAppSelector((state) => state);
+  const { admin, loginAdmin } = useAdmin();
+  const { handleToggleModal } = useNavigationBar();
 
-  const { add, reset } = useWarnings();
+  // const { add, reset } = useWarnings();
   const {
     register,
     handleSubmit,
@@ -37,66 +35,63 @@ const LoginForm: FC = () => {
     clearErrors,
   } = useForm();
 
-  const dispatch = useAppDispatch();
+  // useEffect(() => {
+  //   reset();
+  // }, []);
 
-  useEffect(() => {
-    reset();
-  }, []);
-
-  useEffect(() => {
-    if (user.errors.length > 0) {
-      add(user.errors[0]);
-    } else {
-      reset();
-    }
-  }, [user.errors]);
+  // useEffect(() => {
+  //   if (admin.errors.length > 0) {
+  //     add(admin.errors[0]);
+  //   } else {
+  //     reset();
+  //   }
+  // }, [admin.errors]);
 
   const checkValidForm = useCallback((): boolean => {
     if (Object.entries(errors).length > 0) {
       // add(errors[0]);
       return false;
     }
-    reset();
+    // reset();
     return true;
-  }, [dispatch, errors]);
+  }, [errors]);
 
   const onSubmit = useCallback(
-    (data): void => {
+    (data: any): void => {
+      console.log({ data });
       clearErrors();
       if (checkValidForm()) {
-        dispatch(loginUser(data));
+        loginAdmin(data);
       }
     },
-    [dispatch, clearErrors]
+    [clearErrors]
   );
 
   const handleLoginButtons = (modal: Modal) => {
-    dispatch(toggleModal({ modal }));
+    handleToggleModal({ modal });
   };
 
   return (
     <ModalTemplate heading="| Login" type="loginForm" allowClose>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <InputsContainer>
-          <InputRequiredLabelContainer>
-            <InputLabel htmlFor="username">Username</InputLabel>
-            <Required>*</Required>
-          </InputRequiredLabelContainer>
-          <Input {...register("username")} type="username" />
-        </InputsContainer>
+      <form onSubmit={handleSubmit(onSubmit)} className={template.form}>
+        <Input
+          id="username"
+          name="username"
+          register={register}
+          label="Username"
+          required
+        />
+        <Input
+          id="password"
+          name="password"
+          register={register}
+          label="Password"
+          required
+        />
 
-        <InputsContainer>
-          <InputRequiredLabelContainer>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Required>*</Required>
-          </InputRequiredLabelContainer>
-          <Input {...register("password")} type="password" />
-        </InputsContainer>
+        <Submit type="submit">Login</Submit>
 
-        <Submit type="submit" id="loginSubmitButton">
-          Login
-        </Submit>
-        <div>
+        {/* <div>
           <Warnings modal={false} />
           <Button
             type="button"
@@ -111,15 +106,8 @@ const LoginForm: FC = () => {
           >
             Don't have an account yet?
           </Button>
-          <Button
-            id="loginVerifyAccountButton"
-            type="button"
-            onClick={() => handleLoginButtons("verifyAccount")}
-          >
-            Verify an account
-          </Button>
-        </div>
-      </Form>
+        </div> */}
+      </form>
     </ModalTemplate>
   );
 };
