@@ -3,13 +3,12 @@
   flex-direction: column;
   border: 1px solid #000;
   border-radius: 0.4rem;
-  gap: 0.5rem;
 }
 
 .listHeader {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  padding: 0.5rem;
+  padding: 1rem 0.7rem;
   border-bottom: 1px solid #000;
   border-radius: 0.4rem;
 }
@@ -25,7 +24,7 @@
   span {
     display: flex;
     align-items: center;
-    font-weight: 600;
+    font-weight: 500;
   }
 }
 
@@ -36,6 +35,7 @@
   padding-bottom: 0.3rem;
   max-height: 82vh;
   overflow-y: scroll;
+  padding-top: 0.5rem;
   &::-webkit-scrollbar {
     display: none;
   }

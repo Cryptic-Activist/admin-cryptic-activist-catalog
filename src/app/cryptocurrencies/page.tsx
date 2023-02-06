@@ -1,7 +1,6 @@
 "use client";
-import React from "react";
-import useCryptocurrencies from "@/hooks/useCryptocurrencies";
 import { CryptocurrenciesList as List } from "@/components/List";
+import useCryptocurrencies from "@/hooks/useCryptocurrencies";
 
 const Users = () => {
   const { cryptocurrencies } = useCryptocurrencies(true);

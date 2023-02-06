@@ -1,10 +1,9 @@
 import { FC } from "react";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 import type { ListProps } from "./types";
 
-import styles from "./styles.module.scss";
 import Item from "./Item";
+import styles from "./styles.module.scss";
 
 const Cryptocurrencies: FC<ListProps> = ({ items }) => {
   return (
@@ -12,33 +11,18 @@ const Cryptocurrencies: FC<ListProps> = ({ items }) => {
       <header className={styles.listHeader}>
         <button className={styles.listHeaderItem}>
           <span>CoinGecko Id</span>
-          <span>
-            <FaChevronDown />
-          </span>
         </button>
         <button className={styles.listHeaderItem}>
           <span>Symbol</span>
-          <span>
-            <FaChevronDown />
-          </span>
         </button>
         <button className={styles.listHeaderItem}>
           <span>Name</span>
-          <span>
-            <FaChevronDown />
-          </span>
         </button>
         <button className={styles.listHeaderItem}>
           <span>Created At</span>
-          <span>
-            <FaChevronDown />
-          </span>
         </button>
         <button className={styles.listHeaderItem}>
           <span>Updated At</span>
-          <span>
-            <FaChevronDown />
-          </span>
         </button>
         <button className={`${styles.listHeaderItem}`}>
           <span>Actions</span>
