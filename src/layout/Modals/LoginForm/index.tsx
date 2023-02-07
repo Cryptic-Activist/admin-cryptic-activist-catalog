@@ -1,43 +1,51 @@
-import { FC, useCallback } from "react";
-import { useForm } from "react-hook-form";
+import { useCallback, type FC } from 'react'
+import { useForm } from 'react-hook-form'
 
-import ModalTemplate from "@/layout/Modals/ModalTemplate";
+import ModalTemplate from '@/layout/Modals/ModalTemplate'
 
-import { Input, Submit } from "@/components/Form";
-import { useAdmin } from "@/hooks";
+import { Input, Submit } from '@/components/Form'
+import { useAdmin, useNavigationBar } from '@/hooks'
 
-import Errors from "@/components/Form/Errors";
-import FormButton from "@/components/Form/FormButton";
+import Errors from '@/components/Form/Errors'
+import FormButton from '@/components/Form/FormButton'
 
-import template from "@/layout/Modals/ModalTemplate/styles.module.scss";
+import template from '@/layout/Modals/ModalTemplate/styles.module.scss'
 
 const LoginForm: FC = () => {
-  const { loginAdmin } = useAdmin();
+  const { loginAdmin } = useAdmin()
+  const { handleCloseModal } = useNavigationBar()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    clearErrors,
-  } = useForm();
+    clearErrors
+  } = useForm()
 
   const checkValidForm = useCallback((): boolean => {
     if (Object.entries(errors).length > 0) {
-      return false;
+      return false
     }
 
-    return true;
-  }, [errors]);
+    return true
+  }, [errors])
 
-  const onSubmit = useCallback(
-    (data: any): void => {
-      clearErrors();
-      if (checkValidForm()) {
-        loginAdmin(data);
+  const onSubmit = useCallback(async (data: any) => {
+    const handleLogin = async (data: any) => {
+      const loggedIn = await loginAdmin(data)
+      return loggedIn
+    }
+    clearErrors()
+    if (checkValidForm()) {
+      const loggedIn = await handleLogin(data)
+
+      if (loggedIn) {
+        handleCloseModal()
       }
-    },
-    [clearErrors]
-  );
+    }
+  },
+  [checkValidForm, clearErrors, loginAdmin]
+  )
 
   return (
     <ModalTemplate heading="| Login" type="loginForm" allowClose>
@@ -63,7 +71,7 @@ const LoginForm: FC = () => {
         <Errors errors={[]} />
 
         <FormButton
-          modal={{ modal: "register" }}
+          modal={{ modal: 'register' }}
           label="Don't have an account yet?"
         />
 
@@ -85,7 +93,7 @@ const LoginForm: FC = () => {
         </div> */}
       </form>
     </ModalTemplate>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm

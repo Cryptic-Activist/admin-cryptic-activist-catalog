@@ -1,25 +1,25 @@
-import { USER_API_ENDPOINT } from "@/constants/envs";
-import { fetchGet, fetchPost } from "@/services/axios";
+import { USER_API_ENDPOINT } from '@/constants/envs'
+import { fetchGet, fetchPost } from '@/services/axios'
 import {
   getLocalStorage,
   removeLocalStorage,
-  setLocalStorage,
-} from "@/utils/browser/storage";
-import { map } from "nanostores";
+  setLocalStorage
+} from '@/utils/browser/storage'
+import { map } from 'nanostores'
 import {
-  Admin,
-  AdminState,
-  GetAdminInfoReturn,
-  GetTokensReturn,
-  LoginAdminParams,
-  RegisterAdminParams,
-} from "./types";
+  type Admin,
+  type AdminState,
+  type GetAdminInfoReturn,
+  type GetTokensReturn,
+  type LoginAdminParams,
+  type RegisterAdminParams
+} from './types'
 
 export const admin = map<AdminState>({
   loading: false,
   fetched: false,
-  errors: [],
-});
+  errors: []
+})
 
 const setter = (
   loading: boolean,
@@ -31,9 +31,9 @@ const setter = (
     data,
     loading,
     fetched,
-    errors,
-  });
-};
+    errors
+  })
+}
 
 const getToken = async (
   adminData: LoginAdminParams
@@ -41,14 +41,14 @@ const getToken = async (
   const response = await fetchPost(
     `${USER_API_ENDPOINT}/admins/auth/login`,
     adminData
-  );
+  )
 
   if (response.status !== 200) {
-    return null;
+    return null
   }
 
-  return response.data.results;
-};
+  return response.data.results
+}
 
 const getAdminInfoFromToken = async (
   token: string
@@ -56,59 +56,59 @@ const getAdminInfoFromToken = async (
   const response = await fetchGet(
     `${USER_API_ENDPOINT}/admins/auth/login/decode/token/${token}`,
     { Authorization: `Bearer ${token}` }
-  );
+  )
 
   if (response.status !== 200) {
-    return null;
+    return null
   }
 
-  return response.data.results;
-};
+  return response.data.results
+}
 
 const loginAdmin = async (adminData: LoginAdminParams) => {
   try {
-    const tokens = await getToken(adminData);
+    const tokens = await getToken(adminData)
 
-    if (!tokens) {
-      return null;
+    if (tokens == null) {
+      return null
     }
 
-    if (getLocalStorage("accessToken") !== undefined) {
-      removeLocalStorage("accessToken");
+    if (getLocalStorage('accessToken') !== undefined) {
+      removeLocalStorage('accessToken')
     }
 
-    setLocalStorage("accessToken", tokens.accessToken);
-    setLocalStorage("refreshToken", tokens.refreshToken);
+    setLocalStorage('accessToken', tokens.accessToken)
+    setLocalStorage('refreshToken', tokens.refreshToken)
 
-    const adminInfo = await getAdminInfoFromToken(tokens.accessToken);
+    const adminInfo = await getAdminInfoFromToken(tokens.accessToken)
 
-    if (!adminInfo) {
-      return null;
+    if (adminInfo == null) {
+      return null
     }
 
-    return adminInfo;
-  } catch (err) {}
-};
+    return adminInfo
+  } catch (err) { }
+}
 
 export const decodeAccessToken = async () => {
   try {
-    const accessToken = getLocalStorage("accessToken");
+    const accessToken = getLocalStorage('accessToken')
 
     if (!accessToken) {
-      return null;
+      return null
     }
 
-    const adminInfo = await getAdminInfoFromToken(accessToken);
+    const adminInfo = await getAdminInfoFromToken(accessToken)
 
-    if (!adminInfo) {
-      return null;
+    if (adminInfo == null) {
+      return null
     }
 
-    setter(false, true, [], adminInfo);
+    setter(false, true, [], adminInfo)
 
-    return adminInfo;
-  } catch (err) {}
-};
+    return adminInfo
+  } catch (err) { }
+}
 
 const registerAdmin = async (
   admin: RegisterAdminParams
@@ -116,33 +116,34 @@ const registerAdmin = async (
   const response = await fetchPost(
     `${USER_API_ENDPOINT}/admins/auth/register`,
     admin
-  );
+  )
 
   if (response.status !== 201) {
-    return null;
+    return null
   }
 
-  return response.data;
-};
+  return response.data
+}
 
 export const handleLoginAdmin = async (dataParams: LoginAdminParams) => {
-  setter(true, false, []);
-  const loggedIn = await loginAdmin(dataParams);
+  setter(true, false, [])
+  const loggedIn = await loginAdmin(dataParams)
 
   if (!loggedIn) {
-    setter(false, true, []);
-    return null;
+    setter(false, true, [])
+    return false
   }
 
-  setter(false, true, [], loggedIn);
-};
+  setter(false, true, [], loggedIn)
+  return true
+}
 
 export const handleRegisterAdmin = async (admin: RegisterAdminParams) => {
-  const registered = await registerAdmin(admin);
+  const registered = await registerAdmin(admin)
 
-  if (!registered) {
-    return false;
+  if (registered == null) {
+    return false
   }
 
-  return true;
-};
+  return true
+}

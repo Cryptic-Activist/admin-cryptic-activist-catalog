@@ -1,36 +1,37 @@
-"use client";
-"use client";
-import { useStore } from "@nanostores/react";
-import { useEffect } from "react";
+'use client'
+'use client'
+import { useStore } from '@nanostores/react'
+import { useEffect } from 'react'
 
 import {
   admin,
   decodeAccessToken as handleDecodeAccessToken,
-  handleLoginAdmin,
-} from "@/stores/admin";
-import { CreateUserParams } from "./types";
+  handleLoginAdmin
+} from '@/stores/admin'
+import { type CreateUserParams } from './types'
 
-let counter: number = 0;
+let counter: number = 0
 
 const useUsers = () => {
-  const $admin = useStore(admin);
+  const $admin = useStore(admin)
 
   const loginAdmin = async (data: CreateUserParams) => {
-    await handleLoginAdmin(data);
-  };
-
-  const decodeAccessToken = async () => {
-    await handleDecodeAccessToken();
-  };
+    const hasLoggedIn = await handleLoginAdmin(data)
+    return hasLoggedIn
+  }
 
   useEffect(() => {
-    if (counter === 0) {
-      decodeAccessToken();
-      counter += 1;
+    const decodeAccessToken = async () => {
+      await handleDecodeAccessToken()
     }
-  }, []);
 
-  return { loginAdmin, handleDecodeAccessToken, admin: $admin };
-};
+    if (counter === 0) {
+      const decoded = decodeAccessToken().catch()
+      counter += 1
+    }
+  }, [])
 
-export default useUsers;
+  return { loginAdmin, handleDecodeAccessToken, admin: $admin }
+}
+
+export default useUsers
