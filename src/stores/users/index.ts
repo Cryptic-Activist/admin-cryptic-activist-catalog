@@ -1,73 +1,73 @@
-import { map } from "nanostores";
-import { fetchGet, fetchPost } from "@/services/axios";
+import { fetchGet, fetchPost } from '@/services/axios';
+import { map } from 'nanostores';
 
-import type { CreateUserParams, UsersState } from "./types";
-import { USER_API_ENDPOINT } from "@/constants/envs";
+import { USER_API_ENDPOINT } from '@/constants/envs';
+import type { CreateUserParams, UsersState } from './types';
 
 export const users = map<UsersState>({
-  data: [],
-  loading: false,
-  fetched: false,
-  errors: [],
+	data: [],
+	loading: false,
+	fetched: false,
+	errors: []
 });
 
 const fetchCreateUser = async (data: CreateUserParams) => {
-  const response = await fetchPost(
-    `${USER_API_ENDPOINT}/users/auth/register`,
-    data
-  );
+	const response = await fetchPost(
+		`${USER_API_ENDPOINT}/users/auth/register`,
+		data
+	);
 
-  if (response.status !== 200) {
-    return null;
-  }
+	if (response.status !== 200) {
+		return null;
+	}
 
-  return response.data.results;
+	return response.data.results;
 };
 
 const fetchListUsers = async () => {
-  const response = await fetchGet(`${USER_API_ENDPOINT}/users/all`);
+	const response = await fetchGet(`${USER_API_ENDPOINT}/users/all`);
 
-  if (response.status !== 200) {
-    return null;
-  }
+	if (response.status !== 200) {
+		return null;
+	}
 
-  return response.data.results;
+	return response.data.results;
 };
 
 const setter = (
-  data: any[],
-  loading: boolean,
-  fetched: boolean,
-  errors: string[]
+	data: any[],
+	loading: boolean,
+	fetched: boolean,
+	errors: string[]
 ) => {
-  users.set({
-    data,
-    loading,
-    fetched,
-    errors,
-  });
+	users.set({
+		data,
+		loading,
+		fetched,
+		errors
+	});
 };
 
 export const createUser = async (dataParams: CreateUserParams) => {
-  setter([], true, false, []);
-  const created = await fetchCreateUser(dataParams);
+	setter([], true, false, []);
+	const created = await fetchCreateUser(dataParams);
 
-  if (!created) {
-    setter([], false, true, []);
-    return null;
-  }
+	if (!created) {
+		setter([], false, true, []);
+		return null;
+	}
 
-  setter([], false, true, []);
+	setter([], false, true, []);
 };
 
 export const listUsers = async () => {
-  setter([], true, false, []);
-  const list = await fetchListUsers();
+	setter([], true, false, []);
+	const list = await fetchListUsers();
 
-  if (!list) {
-    setter([], false, true, []);
-    return null;
-  }
+	if (!list) {
+		setter([], false, true, []);
+		return null;
+	}
 
-  setter(list, false, true, []);
+	setter(list, false, true, []);
 };
