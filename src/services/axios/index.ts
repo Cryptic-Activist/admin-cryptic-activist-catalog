@@ -4,8 +4,8 @@ export const fetchGet = async (
 	endpoint: string,
 	headers?: AxiosRequestHeaders | any
 ) => {
-	const response = axios.get(endpoint, { headers });
-	return await response;
+	const response = await axios.get(endpoint, { headers });
+	return response;
 };
 
 export const fetchPost = async (
@@ -13,16 +13,16 @@ export const fetchPost = async (
 	body?: object,
 	headers?: AxiosRequestHeaders | any
 ) => {
-	const response = axios.post(endpoint, body, { headers });
-	return await response;
+	const response = await axios.post(endpoint, body, { headers });
+	return response;
 };
 
 export const fetchPut = async (endpoint: string, params: object) => {
-	const response = axios.put(endpoint, params);
-	return await response;
+	const response = await axios.put(endpoint, params);
+	return response;
 };
 
 export const fetchDelete = async (endpoint: string, params: object) => {
-	const response = axios.delete(endpoint, params);
-	return await response;
+	const response = await axios.delete(endpoint, params);
+	return response;
 };
