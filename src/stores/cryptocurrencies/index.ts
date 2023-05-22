@@ -1,115 +1,115 @@
-import { fetchGet, fetchPost } from "@/services/axios";
-import { map } from "nanostores";
+import { fetchGet, fetchPost } from '@/services/axios';
+import { map } from 'nanostores';
 
-import { CRYPTOCURRENCY_API_ENDPOINT } from "@/constants/envs";
-import { getBearerToken, getLocalStorage } from "@/utils/browser/storage";
+import { CRYPTOCURRENCY_API_ENDPOINT } from '@/constants/envs';
+import { getBearerToken, getLocalStorage } from '@/utils/browser/storage';
 import type {
-  CreateCryptocurrencyParams,
-  CryptocurrenciesState,
-} from "./types";
+	CreateCryptocurrencyParams,
+	CryptocurrenciesState
+} from './types';
 
 export const cryptocurrencies = map<CryptocurrenciesState>({
-  data: [],
-  loading: false,
-  fetched: false,
-  errors: [],
+	data: [],
+	loading: false,
+	fetched: false,
+	errors: []
 });
 
 const fetchCreateCryptocurrency = async (data: CreateCryptocurrencyParams) => {
-  const response = await fetchPost(
-    `${CRYPTOCURRENCY_API_ENDPOINT}/cryptocurrencies/create`,
-    data
-  );
+	const response = await fetchPost(
+		`${CRYPTOCURRENCY_API_ENDPOINT}/cryptocurrencies/coin-gecko/create`,
+		data
+	);
 
-  if (response.status !== 200) {
-    return null;
-  }
+	if (response.status !== 200) {
+		return null;
+	}
 
-  return response.data.results;
+	return response.data.results;
 };
 
 const fetchListCryptocurrencies = async () => {
-  const response = await fetchGet(
-    `${CRYPTOCURRENCY_API_ENDPOINT}/cryptocurrencies`
-  );
+	const response = await fetchGet(
+		`${CRYPTOCURRENCY_API_ENDPOINT}/cryptocurrencies`
+	);
 
-  if (response.status !== 200) {
-    return null;
-  }
+	if (response.status !== 200) {
+		return null;
+	}
 
-  return response.data.results;
+	return response.data.results;
 };
 
 const fetchCreateAllCryptocurrencies = async () => {
-  const accessToken = getLocalStorage("accessToken");
+	const accessToken = getLocalStorage('accessToken');
 
-  if (!accessToken) {
-    return null;
-  }
+	if (!accessToken) {
+		return null;
+	}
 
-  const response = await fetchPost(
-    `${CRYPTOCURRENCY_API_ENDPOINT}/cryptocurrencies/coin-gecko/create`,
-    undefined,
-    {
-      Authorization: getBearerToken(accessToken),
-    }
-  );
+	const response = await fetchPost(
+		`${CRYPTOCURRENCY_API_ENDPOINT}/cryptocurrencies/coin-gecko/create`,
+		undefined,
+		{
+			Authorization: getBearerToken(accessToken)
+		}
+	);
 
-  if (response.status !== 200) {
-    return null;
-  }
+	if (response.status !== 200) {
+		return null;
+	}
 
-  return response.data.results;
+	return response.data.results;
 };
 
 const setter = (
-  data: any[],
-  loading: boolean,
-  fetched: boolean,
-  errors: string[]
+	data: any[],
+	loading: boolean,
+	fetched: boolean,
+	errors: string[]
 ) => {
-  cryptocurrencies.set({
-    data,
-    loading,
-    fetched,
-    errors,
-  });
+	cryptocurrencies.set({
+		data,
+		loading,
+		fetched,
+		errors
+	});
 };
 
 export const createCryptocurrency = async (
-  dataParams: CreateCryptocurrencyParams
+	dataParams: CreateCryptocurrencyParams
 ) => {
-  setter([], true, false, []);
-  const created = await fetchCreateCryptocurrency(dataParams);
+	setter([], true, false, []);
+	const created = await fetchCreateCryptocurrency(dataParams);
 
-  if (!created) {
-    setter([], false, true, []);
-    return null;
-  }
+	if (!created) {
+		setter([], false, true, []);
+		return null;
+	}
 
-  setter([], false, true, []);
+	setter([], false, true, []);
 };
 
 export const listCryptocurrencies = async () => {
-  setter([], true, false, []);
-  const list = await fetchListCryptocurrencies();
+	setter([], true, false, []);
+	const list = await fetchListCryptocurrencies();
 
-  if (!list) {
-    setter([], false, true, []);
-    return null;
-  }
+	if (!list) {
+		setter([], false, true, []);
+		return null;
+	}
 
-  setter(list, false, true, []);
+	setter(list, false, true, []);
 };
 
 export const createAllCryptocurrencies = async () => {
-  setter([], true, false, []);
-  const created = await fetchCreateAllCryptocurrencies();
+	setter([], true, false, []);
+	const created = await fetchCreateAllCryptocurrencies();
 
-  if (!created) {
-    setter([], false, true, []);
-    return null;
-  }
+	if (!created) {
+		setter([], false, true, []);
+		return null;
+	}
 
-  setter(created, false, true, []);
+	setter(created, false, true, []);
 };
