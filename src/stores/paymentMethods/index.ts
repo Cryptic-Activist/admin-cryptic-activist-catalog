@@ -1,75 +1,73 @@
-import { map } from "nanostores";
-import { fetchGet, fetchPost } from "@/services/axios";
+import { map } from 'nanostores';
 
-import type { CreatePaymentMethodParams, PaymentMethodState } from "./types";
-import { OFFER_API_ENDPOINT } from "@/constants/envs";
+import { OFFER_API } from '@/constants/envs';
+import { fetchGet, fetchPost } from '@/services/axios';
+
+import type { CreatePaymentMethodParams, PaymentMethodState } from './types';
 
 export const paymentMethods = map<PaymentMethodState>({
-  data: [],
-  loading: false,
-  fetched: false,
-  errors: [],
+	data: [],
+	loading: false,
+	fetched: false,
+	errors: []
 });
 
 const fetchCreatePaymentMethod = async (data: CreatePaymentMethodParams) => {
-  const response = await fetchPost(
-    `${OFFER_API_ENDPOINT}/payment-methods/create`,
-    data
-  );
+	const response = await fetchPost(`${OFFER_API}/payment-methods/create`, data);
 
-  if (response.status !== 200) {
-    return null;
-  }
+	if (response.status !== 200) {
+		return null;
+	}
 
-  return response.data.results;
+	return response.data.results;
 };
 
 const fetchListPaymentMethod = async () => {
-  const response = await fetchGet(`${OFFER_API_ENDPOINT}/payment-methods`);
+	const response = await fetchGet(`${OFFER_API}/payment-methods`);
 
-  if (response.status !== 200) {
-    return null;
-  }
+	if (response.status !== 200) {
+		return null;
+	}
 
-  return response.data.results;
+	return response.data.results;
 };
 
 const setter = (
-  data: any[],
-  loading: boolean,
-  fetched: boolean,
-  errors: string[]
+	data: any[],
+	loading: boolean,
+	fetched: boolean,
+	errors: string[]
 ) => {
-  paymentMethods.set({
-    data,
-    loading,
-    fetched,
-    errors,
-  });
+	paymentMethods.set({
+		data,
+		loading,
+		fetched,
+		errors
+	});
 };
 
 export const createPaymentMethod = async (
-  dataParams: CreatePaymentMethodParams
+	dataParams: CreatePaymentMethodParams
 ) => {
-  setter([], true, false, []);
-  const created = await fetchCreatePaymentMethod(dataParams);
+	setter([], true, false, []);
+	const created = await fetchCreatePaymentMethod(dataParams);
 
-  if (!created) {
-    setter([], false, true, []);
-    return null;
-  }
+	if (!created) {
+		setter([], false, true, []);
+		return null;
+	}
 
-  setter([], false, true, []);
+	setter([], false, true, []);
 };
 
 export const listPaymentMethod = async () => {
-  setter([], true, false, []);
-  const list = await fetchListPaymentMethod();
+	setter([], true, false, []);
+	const list = await fetchListPaymentMethod();
 
-  if (!list) {
-    setter([], false, true, []);
-    return null;
-  }
+	if (!list) {
+		setter([], false, true, []);
+		return null;
+	}
 
-  setter(list, false, true, []);
+	setter(list, false, true, []);
 };
