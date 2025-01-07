@@ -1,28 +1,32 @@
-"use client";
+'use client';
 
-import { FC } from "react";
-import { usePathname } from "next/navigation";
-import { FaPlus } from "react-icons/fa";
+import { usePathname } from 'next/navigation';
+import { FC } from 'react';
+import { FaPlus } from 'react-icons/fa';
 
-import Button from "@/components/Buttons/Button";
-import Breadcrumb from "@/components/Breadcrumb";
+import Breadcrumb from '@/components/Breadcrumb';
+import Button from '@/components/Button';
 
-import { UsersLayoutProps } from "./types";
-
-import layout from "./layout.module.scss";
+import layout from './layout.module.scss';
+import { UsersLayoutProps } from './types';
 
 const UsersLayout: FC<UsersLayoutProps> = ({ children }) => {
-  const pathname = usePathname();
-  const isCreatePage = pathname?.includes("create");
+	const pathname = usePathname();
+	const isCreatePage = pathname?.includes('create');
 
-  return (
-    <div className={layout.container}>
-      <Breadcrumb>
-        {!isCreatePage && <Button href="/users/create" icon={<FaPlus />} />}
-      </Breadcrumb>
-      {children}
-    </div>
-  );
+	return (
+		<div className={layout.container}>
+			<Breadcrumb>
+				{!isCreatePage && (
+					<Button href="/users/create">
+						<FaPlus />
+						<></>
+					</Button>
+				)}
+			</Breadcrumb>
+			{children}
+		</div>
+	);
 };
 
 export default UsersLayout;

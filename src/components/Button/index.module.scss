@@ -1,0 +1,45 @@
+@import '../../styles/globals.module.scss';
+
+.button {
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.4rem;
+  text-decoration: none;
+  font-size: 1rem;
+  // height: fit-content;
+  // width: fit-content;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.primary {
+  background-color: $secondary;
+  color: $primary;
+  border: 1px solid $secondary;
+  box-shadow: 0px 0px 4px 1px $box-shadow-default-color;
+}
+
+.secondary {
+  background-color: $primary;
+  color: $secondary;
+  border: 1px solid $secondary;
+  box-shadow: 0px 0px 4px 1px $box-shadow-default-color;
+}
+
+.ghost {
+  background-color: $white;
+  color: $secondary;
+  border: 1px solid $secondary;
+  box-shadow: 0px 0px 4px 1px $box-shadow-default-color;
+}
+
+.transparent {
+  background-color: transparent;
+  color: $secondary;
+  border: none;
+  &:hover {
+    background-color: $hover-button-background-color;
+  }
+}
