@@ -1,9 +1,9 @@
-@import "../../../styles/theme.module.scss";
+@use "../../../styles/theme.module.scss";
 
 .link {
   width: 100%;
   text-align: center;
-  color: $text-default;
+  color: theme.$text-default;
   background-color: transparent;
   border: none;
   cursor: pointer;

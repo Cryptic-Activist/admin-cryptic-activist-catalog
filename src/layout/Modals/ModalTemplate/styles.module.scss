@@ -1,4 +1,4 @@
-@import "../../../styles/theme.module.scss";
+@use "../../../styles/theme.module.scss";
 
 @keyframes spin {
   0% {
@@ -21,7 +21,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: $primary;
+  background: theme.$primary;
   padding: 20px;
   border-radius: 6px;
   position: fixed;
@@ -37,7 +37,7 @@
 }
 
 .heading {
-  color: $text-default;
+  color: theme.$text-default;
   font-size: 17px;
   font-weight: 900;
   margin-bottom: 1rem;
@@ -52,14 +52,14 @@
   justify-content: center;
   svg {
     font-size: 20px;
-    color: $text-default;
+    color: theme.$text-default;
     animation: spin 0.5s linear infinite;
   }
 }
 
 .message {
   font-size: 1rem;
-  color: $text-default;
+  color: theme.$text-default;
 }
 
 .form {

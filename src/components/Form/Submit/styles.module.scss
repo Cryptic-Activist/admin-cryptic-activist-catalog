@@ -1,8 +1,8 @@
-@import "../../../styles/theme.module.scss";
+@use "../../../styles/theme.module.scss";
 
 .button {
   background-color: #000;
-  color: $primary;
+  color: theme.$primary;
   font-size: 1rem;
   border-radius: 0.4rem;
   border: none;
